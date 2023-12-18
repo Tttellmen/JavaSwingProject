@@ -8,17 +8,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
+// Хэрэглэгчийн даалгаварын класс
 public class userDaoImp implements UserDao {
-    private HashMap<String, User> users= new HashMap<String, User>();
+    private HashMap<String, User> users = new HashMap<String, User>();
     private DatabaseConnection dbConnection;
+
+    // Конструктор
     public userDaoImp(DatabaseConnection conn) {
         this.dbConnection = conn;
     }
+
+    // Хэрэглэгчийн мэдээллийг авах функц
     @Override
     public HashMap<String, User> getDataUsers() throws SQLException {
         Statement statement = dbConnection.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM user1");
-        while(resultSet.next()){
+        while (resultSet.next()) {
             User user = new User(
                     resultSet.getString(2),
                     resultSet.getString(3),
@@ -30,6 +35,8 @@ public class userDaoImp implements UserDao {
         }
         return users;
     }
+
+    // Хэрэглэгч нэмэх функц
     @Override
     public void addUser(User user) throws SQLException {
         String query = "INSERT INTO user1 (name, mail, password, type) VALUES (?, ?, ?, ?)";
@@ -43,6 +50,8 @@ public class userDaoImp implements UserDao {
         dbConnection.getConnection().close();
         users.put(user.getMail(), user);
     }
+
+    // Хэрэглэгчийн жагсаалт
     public HashMap<String, User> getUsers() {
         return users;
     }
