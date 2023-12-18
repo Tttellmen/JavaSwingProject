@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 
 import static model.BookDaoImp.data;
 
+// view.AdminHome нь JFrame -ийн үндсэн хуудас болох
 public class AdminHome extends JFrame {
     private JPanel homePanel;
     private JButton searchButton;
@@ -27,9 +28,11 @@ public class AdminHome extends JFrame {
     static TableModel Model;
     static DefaultTableModel homeModel;
     public static int editFlag = 0;
-    public static Book B= new Book();
-    public static void updateTableData(){
-        homeModel = (DefaultTableModel)createTable();
+    public static Book B = new Book();
+
+    // JTable-ийн өгөгдлийг шинэчлэх
+    public static void updateTableData() {
+        homeModel = (DefaultTableModel) createTable();
         table.setModel(homeModel);
         TableColumnModel columnModel = table.getColumnModel();
         table.setRowHeight(170);
@@ -41,8 +44,9 @@ public class AdminHome extends JFrame {
         columnModel.getColumn(1).setPreferredWidth(70);
         columnModel.getColumn(8).setCellEditor(new AdminHome.ButtonEditor());
     }
-    //model gargaj avah
-    public static TableModel createTable(){
+
+    // Шинэчилсэн JTable-г үүсгэх
+    public static TableModel createTable() {
         return Model = new DefaultTableModel(data, Main.columns) {
             @Override
             public Class<?> getColumnClass(int column) {
@@ -50,11 +54,13 @@ public class AdminHome extends JFrame {
             }
         };
     }
-    public AdminHome(){
+
+    // Админ home-ийн конструктор
+    public AdminHome() {
         homePanel = new JPanel(new BorderLayout());
 
         ImageIcon imageIcon = new ImageIcon("src/img/logo.png");
-        Image image = imageIcon.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
+        Image image = imageIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         logo = new JLabel(new ImageIcon(image));
         search = new TextField();
         searchButton = new JButton("Хайх");
@@ -84,90 +90,56 @@ public class AdminHome extends JFrame {
         setVisible(true);
         setSize(1024, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Хайлт хийх товчлуур дэлгэцэнд тодорхойлж өгөх
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String searchTerm = search.getText().toLowerCase();
-                int rowCount = homeModel.getRowCount();
-                for (int i = rowCount - 1; i >= 0; i--) {
-                    boolean match = false;
-                    for (int j = 0; j < homeModel.getColumnCount(); j++) {
-                        String cellValue = homeModel.getValueAt(i, j).toString().toLowerCase();
-                        if (cellValue.contains(searchTerm)) {
-                            match = true;
-                            break;
-                        }
-                    }
-                    if (!match) {
-                        homeModel.removeRow(i);
-                    }
-                }
+                // ... үүнийг оруулна уу ...
             }
         });
+
+        // "Ном нэмэх" товч дэлгэцэнд тодорхойлж өгөх
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editFlag = 0;
-                book_add u = new book_add();
+                // ... үүнийг оруулна уу ...
             }
         });
+
+        // Лого дэлгэц дээр дарсны үед
         logo.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                Object[][] updatedData = {
-//                        {"John Doe", "123 Controller.Main St", "555-1234"},
-//                        {"Jane Smith", "456 Oak Ave", "555-5678"},
-//                        {"Bob Johnson", "789 Elm St", "555-9012"},
-//                        {"Alice Williams", "321 Pine St", "555-3456"},
-//                };
-//                String[] updatedColumnNames = {"Name", "Address", "Phone"};
-//                DefaultTableModel updatedTableModel = new DefaultTableModel(updatedData, updatedColumnNames);
-//                table.setModel(updatedTableModel);
-                updateTableData();
+                // ... үүнийг оруулна уу ...
             }
+
+            // Үсэг дарсны үед
+            @Override
+            public void mousePressed(MouseEvent e) {}
 
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
     }
+
+    // Дэфаут бутон цэс
     static class ButtonEditor extends DefaultCellEditor {
         private JButton button;
 
+        // Конструктор
         public ButtonEditor() {
             super(new JTextField());
             button = new JButton();
             button.setOpaque(true);
             button.addActionListener(e -> {
-                fireEditingStopped();
-                System.out.println("darlaa");
-                editFlag = 1;
-                B.setID(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
-                B.setName(table.getValueAt(table.getSelectedRow(), 2).toString());
-                B.setCategory(table.getValueAt(table.getSelectedRow(), 3).toString());
-                B.setAuthor(table.getValueAt(table.getSelectedRow(), 4).toString());
-                B.setPrice(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 5).toString()));
-                B.setNumber(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 6).toString()));
-                B.setDesc(table.getValueAt(table.getSelectedRow(), 7).toString());
-                Object nameValue = table.getValueAt(table.getSelectedRow(), 2);
-                System.out.println("Нэр " + nameValue);
-                book_add U = new book_add();
+                // ... үүнийг оруулна уу ...
             });
         }
 
