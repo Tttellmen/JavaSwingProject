@@ -3,7 +3,6 @@ package view;
 import Controller.Main;
 import function.ButtonRenderer;
 import model.Book;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
