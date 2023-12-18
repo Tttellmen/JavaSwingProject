@@ -11,33 +11,39 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-public class BookDaoImp implements BookDao{
+
+// BookDaoImp класс
+public class BookDaoImp implements BookDao {
     private DatabaseConnection dbConnection;
     public static Object[][] data;
+
+    // BookDaoImp классын үндсэн үүсгэгч функц
     public BookDaoImp(DatabaseConnection conn) {
         this.dbConnection = conn;
     }
+
+    // getDataBooks функц
     @Override
     public void getDataBooks() throws SQLException {
         Statement statement = dbConnection.getConnection().createStatement();
         ResultSet bookSet = statement.executeQuery("SELECT * FROM book");
-        //heden mor bgg tooloh
+        // Бүх номын тоог тоолох
         int count = 0;
         while (bookSet.next()) {
             count++;
         }
         bookSet = statement.executeQuery("SELECT * FROM book");
-        //ter morteigee adil hemjeenii husnegten object uusgeh
+        // Өөрчлөгдөөгүй тэр мөртэйгээ адил хэмжээний хүснэгт үүсгэх
         data = new Object[count][9];
         int r = 0;
         String addbasket = new String("Сагслах");
         String edit = new String("Өөрчлөх");
-        //object luugaa datagaa hiih
+        // Объект хүснэгтүүдийг үүсгэх
         while (bookSet.next()) {
             String img = new String();
-            if(bookSet.getInt(1)>10){
+            if (bookSet.getInt(1) > 10) {
                 img = "src/img/1.jpg";
-            }else {
+            } else {
                 img = "src/img/" + bookSet.getInt(1) + ".jpg";
             }
             String category = bookSet.getString(2);
@@ -59,9 +65,9 @@ public class BookDaoImp implements BookDao{
             data[r][5] = price;
             data[r][6] = number;
             data[r][7] = desc;
-            if(Login.A.getType()==1){
+            if (Login.A.getType() == 1) {
                 data[r][8] = edit;
-            }else {
+            } else {
                 data[r][8] = addbasket;
             }
             r++;
@@ -70,6 +76,8 @@ public class BookDaoImp implements BookDao{
         statement.close();
         dbConnection.getConnection().close();
     }
+
+    // Зураг унших функц
     public static ImageIcon loadImage(String filename) {
         System.out.println(filename);
         try {
