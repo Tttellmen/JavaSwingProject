@@ -3,7 +3,7 @@
  * It initializes various components such as the user login data, database connection, and book-related data.
  * The class follows Java coding conventions for readability and maintainability.
  * 
- * @author [Enkhzaya]
+ * @author [Enkhzaya&Telmen]
  * @version 1.0
  * @since [2023-11-20]
  */
